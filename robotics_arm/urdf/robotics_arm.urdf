@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="robotics_arm">
+	
+	<link name="base_link">
+		<visual>
+			<geometry>
+				<cylinder length="0.001" radius="0.045"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</visual>
+	</link>
+
+	<joint name="fixed_joint" type="fixed">
+		<parent link="base_link"/>
+		<child  link="base_link_1"/>
+		<origin xyz="0 0 0"/>	
+	</joint>
+	
+	<link name="base_link_1">
+		<visual>
+			<geometry>
+				<box size="0.00525 0.0105 0.095"/>
+			</geometry>
+			<origin rpy = "0 0 0" xyz="0 0 0.0475"/>
+		</visual>
+	</link>
+
+	<joint name="joint_1" type="revolute">
+		<parent link="base_link_1"/>
+		<child  link="shoulder_offset_link"/>
+		<origin xyz="0 0 0.095"/>
+		<axis xyz="0 0 1"/>
+		<limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+	</joint>
+	
+	<link name="shoulder_offset_link">
+		<visual>
+			<geometry>
+				<box size="0.0105 0.0105 0.005"/>
+			</geometry>
+			<origin rpy = "0 0 0" xyz="-0.00525 0 0"/>
+		</visual>
+	</link>
+
+	<joint name="joint_2" type="revolute">
+		<parent link="shoulder_offset_link"/>
+		<child  link="shoulder_link"/>
+		<origin xyz="-0.0105 0 0"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="30" velocity="1.0" lower="-0.785398" upper="2.35619" />
+	</joint>
+
+	<link name="shoulder_link">
+		<visual>
+			<geometry>
+				<box size="0.00525 0.0105 0.104"/>
+			</geometry>
+			<origin rpy = "0 0 0" xyz="0 0 0.052"/>
+		</visual>
+	</link>
+
+	<joint name="joint_3" type="revolute">
+		<parent link="shoulder_link"/>
+		<child  link="elbow_link"/>
+		<origin xyz="0 0 0.104"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="30" velocity="1.0" lower="-2.35619" upper="0.785398" />
+	</joint>
+
+	<link name="elbow_link">
+		<visual>
+			<geometry>
+				<box size="0.0955 0.0105 0.0052"/>
+			</geometry>
+			<origin rpy = "0 0 0" xyz="0.04775 0 0"/>
+		</visual>
+	</link>
+
+	<joint name="joint_4" type="revolute">
+		<parent link="elbow_link"/>
+		<child  link="wrist_link"/>
+		<origin xyz="0.0955 0 0"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="30" velocity="1.0" lower="0" upper="1.57" />
+	</joint>
+
+	<link name="wrist_link">
+		<visual>
+			<geometry>
+				<box size="0.0052 0.0105 0.0275"/>
+			</geometry>
+			<origin rpy = "0 0 0" xyz="0 0 0.01375"/>
+		</visual>
+	</link>
+
+	<joint name="joint_5" type="revolute">
+		<parent link="wrist_link"/>
+		<child  link="end_effector_link"/>
+		<origin xyz="0 0 0.0275"/>
+		<axis xyz="1 0 0"/>
+		<limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+	</joint>
+
+	<link name="end_effector_link">
+		<visual>
+			<geometry>
+				<box size="0.0375 0.0105 0.0052"/>
+			</geometry>
+			<origin rpy = "0 0 0" xyz="0.01875 0 0"/>
+		</visual>
+	</link>
+
+</robot>
